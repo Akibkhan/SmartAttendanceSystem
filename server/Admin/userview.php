@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <header class="p-3 mb-3 border-bottom">
@@ -38,7 +38,7 @@ $info = $_SESSION['userinfo'];
             <li><a class="dropdown-item" href="#"><?php echo $info['Name']; ?></a></li>
             <li><a class="dropdown-item" href="profile.php">Settings</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a  class="dropdown-item" href="logout.php">Logout</a></li>
+            <li><a  class="dropdown-item" href="../logout.php">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -57,9 +57,7 @@ $info = $_SESSION['userinfo'];
 <div class="d-flex flex-column flex-shrink-0 p-1 text-white bg-dark" style="width: 280px;">
   
     <ul class="nav nav-pills flex-column mb-auto">
-	<?php  if($info['userType'] == 'Admin'){?>
       <li class="nav-item"><a class="nav-link text-white" href="addbook.php">Add Books</a></li>
-	<?php }?>
       <li class="nav-item"><a class="nav-link text-white" href="books.php">Issuse New Books</a></li>
       <li class="nav-item"><a class="nav-link text-white" href="history.php">History</a></li>
 	        <li class="nav-item"><a class="nav-link text-white" href="profile.php">Fine</a></li>
@@ -70,90 +68,62 @@ $info = $_SESSION['userinfo'];
   
   
       </div>
-      <div class="bg-body-tertiary border rounded-3">
-       
-<h3>Your Currently Issused Books:</h3>
-<table class="table table-bordered">
-<thead>
-<tr>
-<td>S.No</td>
-<td>Title</td>
-<td>Author</td>
-</tr></thead>
-<tbody>
- 
-       <?php
-$uid= $info['id'];
+      <div class="bg-body-tertiary border rounded-3"><br>
+	  <h1>Personal Details</h1>
+	  <hr>
+     <table class="table table-border" border="1">
+    <tr>
+        
+    <th>S.NO</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+
+    <?php
+	
+$uid= $_GET['id'];
     $connection = new mysqli("localhost","root","","aur");
-    $query = "SELECT * FROM BOOKS WHERE id = ANY(SELECT books_id FROM issue WHERE `contact_id` =$uid);";
+    $query = "SELECT * FROM users WHERE id=$uid;";
     $result = $connection->query($query);
     foreach($result as $record){
         echo '<tr>';
         echo '<td>'.$record['id'].'</td>';
-        echo '<td>'.$record['Title'].'</td>';
-        echo '<td>'.$record['Author'].'</td>';
+        echo '<td>'.$record['Name'].'</td>';
+        echo '<td>'.$record['Email'].'</td>';;
+        echo '<td>'.'<a href="userview.php?id='.$record['id'].'">View</a>'.'</td>';
         echo '</tr>';
     }
 
 ?>
-</tbody>
-
-</tbody>
+   
 </table>
-<h1>Attendance</h1>
-<table class="table table-bordered">
-<thead>
-<tr>
-<td>S.No</td>
-<td>Course</td>
-<td>Time</td>
-<td>Marked</td>
-</tr></thead>
-<tbody>
-
-</tbody>
-
-<?php 
-function scheduletime($sid,$cid){
-  $conn = new mysqli("localhost","root","","aur");
-$result = $conn->query("SELECT time FROM schedule WHERE sid='$sid' AND cid='$cid';");
-foreach($result as $record){
-  $time = $record['time'];
-}
-
-return $time;
-}
-
-$sid = $info['sid'];
-$conn = new mysqli("localhost","root","","aur");
-$result = $conn->query("SELECT * FROM courses INNER JOIN enrollment  ON courses.cid=enrollment.cid AND enrollment.sid='$sid';");
-$result_attendance = $conn->query("SELECT * FROM attendance;");
-$ct=0;
-foreach($result as $record){
-  echo '<tr><td>'.++$ct.'</td><td>'.$record['Title'].'</td><td>'.scheduletime($record['sid'],$record['cid']).'</td>';
-  
-  foreach($result_attendance as $rs){
-    if($record['cid'] == $rs['cid'] ){
-   echo '<td>'.($rs['marked']==1?"<i class='fa fa-check' style='font-size:48px;color:green;'></i>":"<i class='fa fa-close' style='font-size:48px;color:red'></i>").'</td></tr>';
-  }
-
-  }
-    
-  
- 
-}
-?>
-
-
-
-</tbody>
-</table>
-      </div>
-    </div>
-  </div>
+  <h1>Books Issued Details</h1>
+	  <hr>
+	  
+	  
+	  
+	  
+	   <h1>History</h1>
+	  <hr>
+	  
+	  
+	     <h1>Fine Details</h1>
+	  <hr>
+</div>
+</div>
+</div>
+</body>
+</html>
 
 
 
 
+
+
+
+
+	  
+	  
 
 

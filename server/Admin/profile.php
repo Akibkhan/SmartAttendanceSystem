@@ -38,7 +38,7 @@ $info = $_SESSION['userinfo'];
             <li><a class="dropdown-item" href="#"><?php echo $info['Name']; ?></a></li>
             <li><a class="dropdown-item" href="profile.php">Settings</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a  class="dropdown-item" href="logout.php">Logout</a></li>
+            <li><a  class="dropdown-item" href="../logout.php">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -58,12 +58,12 @@ $info = $_SESSION['userinfo'];
   
     <ul class="nav nav-pills flex-column mb-auto">
 	<?php  if($info['userType'] == 'Admin'){?>
-      <li class="nav-item"><a class="nav-link text-white" href="addbook.php">Add Books</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="addbook.php">Books</a></li>
 	<?php }?>
-      <li class="nav-item"><a class="nav-link text-white" href="books.php">Issuse New Books</a></li>
-      <li class="nav-item"><a class="nav-link text-white" href="history.php">History</a></li>
-	        <li class="nav-item"><a class="nav-link text-white" href="profile.php">Fine</a></li>
-      <li class="nav-item"><a class="nav-link text-white" href="profile.php">Profile</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="registration.php">Add User</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="search.php">Check Record</a></li>
+	 
+  
 </ul>
 
   </div>
